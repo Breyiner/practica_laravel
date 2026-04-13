@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Producto\StoreProductoRequest;
-use App\Models\Producto;
-use App\Services\ProductoService;
+use App\Http\Requests\Categoria\StoreCategoriaRequest;
+use App\Models\Categoria;
+use App\Services\CategoriaService;
 use Illuminate\Http\Request;
 use Nette\Utils\Json;
 
-class ProductoController extends Controller
+class CategoriaController extends Controller
 {
 
     public function __construct(
-        private ProductoService $productoService
+        private CategoriaService $categoriaService
     ) {}
 
     public function index(Request $request)
     {
-        $data = $this->productoService->getProductos();
+        $data = $this->categoriaService->getCategorias();
 
         return response()->json([
             'data' => $data
@@ -26,18 +26,18 @@ class ProductoController extends Controller
 
     public function show(Request $request, int $id)
     {
-        $data = $this->productoService->getProducto($id);
+        $data = $this->categoriaService->getCategoria($id);
 
         return response()->json([
             'data' => $data
         ]);
     }
 
-    public function store(StoreProductoRequest $request)
+    public function store(StoreCategoriaRequest $request)
     {
         $dataValidated = $request->validated();
 
-        $data = $this->productoService->createProducto($dataValidated, $request);
+        $data = $this->categoriaService->createCategoria($dataValidated);
 
         return response()->json([
             'data' => $data

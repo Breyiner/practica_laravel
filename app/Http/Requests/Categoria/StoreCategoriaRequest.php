@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Producto;
+namespace App\Http\Requests\Categoria;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductoRequest extends FormRequest
+class StoreCategoriaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,6 @@ class StoreProductoRequest extends FormRequest
         return [
             'nombre' => 'required',
             'descripcion' => 'required',
-            'precio' => 'required',
-            'stock' => 'required',
-            'categoria_id' => 'required|exists:categorias,id',
-            'imagen' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ];
     }
 }

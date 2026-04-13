@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Producto extends Model
@@ -13,6 +15,7 @@ class Producto extends Model
     protected $table = 'productos';
     
     protected $fillable = [
+        'categoria_id',
         'nombre',
         'descripcion',
         'precio',
@@ -28,4 +31,14 @@ class Producto extends Model
     ];
     
     protected $hidden = [];
+
+    public function categoria(): BelongsTo
+    {
+        return $this->belongsTo(Categoria::class, 'categoria_id', 'id');
+    }
+
+    public function imagenes(): MorphMany
+    {
+        return $this->morphMany(Imagen::class, 'imageable');
+    }
 }
