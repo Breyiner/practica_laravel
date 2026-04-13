@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\ProductoCreado;
 use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -39,6 +40,9 @@ class ProductoService
             ]);
 
             DB::commit();
+
+            event(new ProductoCreado($producto));
+            
             return $producto->load('imagenes');
 
         } catch (\Exception $e) {
